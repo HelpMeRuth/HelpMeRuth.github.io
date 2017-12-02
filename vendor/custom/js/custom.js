@@ -1,5 +1,6 @@
 // Event functions
 function OnLoad() {
+  lazyLoad();
   countPages();
   overlay();
   straightPage(true);
@@ -190,4 +191,10 @@ function reload() {
   loaded = false;
   scaleBackground();
   movePage(0, NaN);
+}
+
+function lazyLoad() {
+  $(".lazyload").each(function() {
+    $(this).attr("src", $(this).attr("data-src"));
+  });
 }
