@@ -62,35 +62,42 @@ function movePage(newPage, down) {
     // Nullify the difference between position: fixed and initial
     $(".page" + currentPage).css("left", $(".page" + currentPage).offset().left);
     $(".page" + currentPage).css("left", $(".page" + currentPage).offset().left);
-    // Enable animation
-    $(".page" + currentPage).css("transition", "1s");
-    $(".page" + newPage).css("transition", "1s");
-    // Place the currentPage above or under the visible screen, depending on direction
-    if (down) {
-      $(".page" + currentPage).css("top", -$(".page" + currentPage).height() + "px");
-    } else {
-      $(".page" + currentPage).css("top", $(".page" + newPage).height() + "px");
-    }
-    // "Freeze" the page so it wont cause any issues while hidden
-    $(".page" + currentPage).css("position", "fixed");
-
-    // Bring in the new page
-    $(".page" + newPage).css("top", "0px");
-    // Wait for the animation
+    //
+    $(".page" + currentPage).css("top", -$(document).scrollTop())
+    $(".page" + newPage).css("top", parseInt($(".page" + newPage).css("top"), 10) - $(document).scrollTop())
     setTimeout(function() {
-      // Disable animation
-      $(".page" + currentPage).css("transition", "0s");
-      $(".page" + newPage).css("transition", "0s");
-      $(".page" + newPage).css("position", "initial");
-      $(".page" + newPage).css("left", "0px");
-      // Update currentPage
-      currentPage = newPage;
-      // Scaling
-      scalePage();
-      straightPage();
-      overlay();
-      lock = false;
-    }, 1000);
+
+
+      // Enable animation
+      $(".page" + currentPage).css("transition", "1s");
+      $(".page" + newPage).css("transition", "1s");
+      // Place the currentPage above or under the visible screen, depending on direction
+      if (down) {
+        $(".page" + currentPage).css("top", -$(".page" + currentPage).height() + "px");
+      } else {
+        $(".page" + currentPage).css("top", $(".page" + newPage).height() + "px");
+      }
+      // "Freeze" the page so it wont cause any issues while hidden
+      $(".page" + currentPage).css("position", "fixed");
+
+      // Bring in the new page
+      $(".page" + newPage).css("top", "0px");
+      // Wait for the animation
+      setTimeout(function() {
+        // Disable animation
+        $(".page" + currentPage).css("transition", "0s");
+        $(".page" + newPage).css("transition", "0s");
+        $(".page" + newPage).css("position", "initial");
+        $(".page" + newPage).css("left", "0px");
+        // Update currentPage
+        currentPage = newPage;
+        // Scaling
+        scalePage();
+        straightPage();
+        overlay();
+        lock = false;
+      }, 1000);
+    }, 100);
   }
 }
 // Set the right configuration of pages
