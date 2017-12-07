@@ -41,6 +41,7 @@ function countPages() {
 }
 // Scroll up or down, to any page number or right under or above the current page
 function movePage(newPage, down) {
+
   if (!lock) {
     lock = true;
     // Check for defined direction if not given calculate automaticly
@@ -94,7 +95,7 @@ function movePage(newPage, down) {
         // Update currentPage
         currentPage = newPage;
         // Scaling
-        straightPage(false);
+        straightPage();
         overlay();
         lock = false;
       }, 1000);
