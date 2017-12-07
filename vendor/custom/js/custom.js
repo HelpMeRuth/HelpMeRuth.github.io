@@ -3,12 +3,12 @@ function OnLoad() {
   lazyLoad();
   countPages();
   overlay();
-  straightPage(true);
+  straightPage();
   scaleBackground()
 }
 //
 function Resize() {
-  straightPage(true);
+  straightPage();
   if (!loaded) {
     scaleBackground();
   }
@@ -166,6 +166,7 @@ function scaleBackground() {
 }
 
 function continuePage() {
+  $(window).scrollTop(0);
   $(".overlay").css("opacity", "0");
   $(".background").css("opacity", "0");
   $(".navbar-custom").css("opacity", "1");
