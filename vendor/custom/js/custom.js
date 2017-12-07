@@ -61,7 +61,7 @@ function movePage(newPage, down) {
     } else if (newPage > pages) {
       newPage = pages;
     }
-    // Nullify the difference between position: fixed and initial
+    // Nullify the difference between position: fixed and static
     $(".page" + currentPage).css("left", $(".page" + currentPage).offset().left);
     $(".page" + currentPage).css("left", $(".page" + currentPage).offset().left);
 
@@ -89,7 +89,7 @@ function movePage(newPage, down) {
         // Disable animation
         $(".page" + currentPage).css("transition", "0s");
         $(".page" + newPage).css("transition", "0s");
-        $(".page" + newPage).css("position", "initial");
+        $(".page" + newPage).css("position", "static");
         $(".page" + newPage).css("left", "0px");
         // Update currentPage
         currentPage = newPage;
@@ -181,8 +181,8 @@ function continuePage() {
 }
 
 function reload() {
-  $(".overlay").css("display", "initial");
-  $(".background").css("display", "initial");
+  $(".overlay").css("display", "static");
+  $(".background").css("display", "static");
   console.log($(".overlay").css("transition"));
   $(".overlay").css("opacity", "1");
   $(".background").css("opacity", "1");
