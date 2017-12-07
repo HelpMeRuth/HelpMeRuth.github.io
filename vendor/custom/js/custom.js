@@ -64,7 +64,6 @@ function movePage(newPage, down) {
     }
     // Nullify the difference between position: fixed and static
     $(".page" + currentPage).css("left", $(".page" + currentPage).offset().left);
-    $(".page" + currentPage).css("left", $(".page" + currentPage).offset().left);
 
     // Compensate for the scrolled position
     $(".page" + currentPage).css("top", -$(document).scrollTop());
