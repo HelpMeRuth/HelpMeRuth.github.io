@@ -20,11 +20,11 @@ body {
   background-color: rgba(35, 35, 35, 1);
   opacity: 0;
   /* Enable hardware acceleration to fix laggy transitions */
--webkit-transform: translateZ(0);
--moz-transform: translateZ(0);
--ms-transform: translateZ(0);
--o-transform: translateZ(0);
-transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 @media (min-width: 1000px) {
