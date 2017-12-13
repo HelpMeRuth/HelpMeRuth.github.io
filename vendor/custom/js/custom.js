@@ -3,14 +3,12 @@ function OnLoad() {
   lazyLoad();
   countPages();
   overlay();
-  sizePage();
   straightPage();
   scaleBackground()
 }
 //
 function Resize() {
-  sizePage();
-
+  straightPage();
   scaleBackground();
 }
 // Events
@@ -102,25 +100,19 @@ function movePage(newPage, down) {
 // Set the right configuration of pages
 function straightPage() {
   for (var i = 0; i <= pages; i++) {
+    $(".page" + i).css("min-height", $(window).height()); // Reset the min-height
+    $(".page" + i).css("height", $(window).height()); // Reset the height
+    $(".page" + i).css("height", $(".height" + i).height()); // Set the actual height
     if (i < currentPage && i !== currentPage) {
       $(".page" + i).css("top", -$(".page" + i).height());
     } else if (i > currentPage) {
       $(".page" + i).css("top", $(document).height());
     }
-  }
-}
-
-function sizePage() {
-  for (var i = 0; i <= pages; i++) {
-    $(".page" + i).css("min-height", $(window).height()); // Reset the min-height
-    $(".page" + i).css("height", $(window).height()); // Reset the height
-    $(".page" + i).css("height", $(".height" + i).height()); // Set the actual height
     if (i !== currentPage) {
       $(".page" + i).css("left", $(".page" + currentPage).offset().left);
       $(".page" + i).css("left", $(".page" + currentPage).offset().left);
     }
   }
-
 }
 // Animate the scroll buttons(hide and show on first and last page)
 function overlay() {
