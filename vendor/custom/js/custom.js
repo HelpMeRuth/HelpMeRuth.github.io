@@ -9,9 +9,7 @@ function OnLoad() {
 //
 function Resize() {
   straightPage();
-  if (!loaded) {
-    scaleBackground();
-  }
+  scaleBackground();
 }
 // Events
 //
@@ -81,11 +79,17 @@ function movePage(newPage, down) {
       }
       // "Freeze" the page so it wont cause any issues while hidden
       $(".page" + currentPage).css("position", "fixed");
-
       // Bring in the new page
       $(".page" + newPage).css("top", 0);
       // Wait for the animation
       setTimeout(function() {
+        // disable/enable 1st page background2
+        if (currentPage == 0) {
+          $(".background2").css("opacity", "0");
+        }
+        if (newPage == 0) {
+          $(".background2").css("opacity", "1");
+        }
         // Disable animation
         $(".page" + currentPage).css("transition", "0s");
         $(".page" + newPage).css("transition", "0s");
@@ -152,29 +156,33 @@ function overlay() {
 // only needed for greeting overlay. both mobile en desktop
 function scaleBackground() {
   var Background = $(".background");
-  if (!loaded) {
-    //Main magic
-    if ($(window).height() > Background.height()) {
-      Background.css("max-width", "none");
-      Background.css("max-height", "100%");
-    }
-    if ($(window).width() > Background.width()) {
-      Background.css("max-width", "100%");
-      Background.css("max-height", "none");
-    }
+  // if (!loaded) {
+  //Main magic
+  if ($(window).height() > Background.height()) {
+    Background.css("max-width", "none");
+    Background.css("max-height", "100%");
+    console.log("1");
   }
+  if ($(window).width() > Background.width()) {
+    Background.css("max-width", "100%");
+    Background.css("max-height", "none");
+    console.log("2");
+  }
+  // }
 }
 
 function continuePage() {
   $(window).scrollTop(0);
   $(".overlay").css("opacity", "0");
   $(".background").css("opacity", "0");
+  $(".background2").css("opacity", "1");
   $(".navbar-custom").css("opacity", "1");
   $(".container").css("opacity", "1");
   $(".btn-circle").css("opacity", "1");
   setTimeout(function() {
     $(".overlay").css("display", "none");
     $(".background").css("display", "none");
+    $(".background2").css("display", "inline");
     loaded = true;
     overlay();
   }, 500);
@@ -185,6 +193,7 @@ function reload() {
   $(".background").css("display", "inline");
   $(".overlay").css("opacity", "1");
   $(".background").css("opacity", "1");
+  $(".background2").css("opacity", "0");
   $(".navbar-custom").css("opacity", "0");
   $(".container").css("opacity", "0");
   $(".btn-circle").css("opacity", "0");
