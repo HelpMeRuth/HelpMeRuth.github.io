@@ -10,6 +10,7 @@ function OnLoad() {
 //
 function Resize() {
   sizePage();
+
   scaleBackground();
 }
 // Events
@@ -106,10 +107,6 @@ function straightPage() {
     } else if (i > currentPage) {
       $(".page" + i).css("top", $(document).height());
     }
-    if (i !== currentPage) {
-      $(".page" + i).css("left", $(".page" + currentPage).offset().left);
-      $(".page" + i).css("left", $(".page" + currentPage).offset().left);
-    }
   }
 }
 
@@ -118,7 +115,12 @@ function sizePage() {
     $(".page" + i).css("min-height", $(window).height()); // Reset the min-height
     $(".page" + i).css("height", $(window).height()); // Reset the height
     $(".page" + i).css("height", $(".height" + i).height()); // Set the actual height
+    if (i !== currentPage) {
+      $(".page" + i).css("left", $(".page" + currentPage).offset().left);
+      $(".page" + i).css("left", $(".page" + currentPage).offset().left);
+    }
   }
+
 }
 // Animate the scroll buttons(hide and show on first and last page)
 function overlay() {
