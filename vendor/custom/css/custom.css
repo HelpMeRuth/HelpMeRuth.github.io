@@ -223,12 +223,6 @@ body {
   opacity: 1;
 }
 
-.background2 {
-  opacity: 0;
-  filter: blur(1px);
-  transition: 0.6s
-}
-
 .logo {
   height: auto;
   width: 80%;
