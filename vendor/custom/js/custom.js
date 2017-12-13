@@ -109,8 +109,7 @@ function straightPage() {
       $(".page" + i).css("top", $(document).height());
     }
     if (i !== currentPage) {
-      $(".page" + i).css("left", $(".page" + currentPage).offset().left);
-      $(".page" + i).css("left", $(".page" + currentPage).offset().left);
+      $(".page" + i).css("left", ($(window).width() - $(".page" + i).width()) / 2 - 30);
     }
   }
 }
