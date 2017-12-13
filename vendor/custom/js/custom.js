@@ -3,12 +3,13 @@ function OnLoad() {
   lazyLoad();
   countPages();
   overlay();
+  sizePage();
   straightPage();
   scaleBackground()
 }
 //
 function Resize() {
-  straightPage();
+  sizePage();
   scaleBackground();
 }
 // Events
@@ -39,7 +40,6 @@ function countPages() {
 }
 // Scroll up or down, to any page number or right under or above the current page
 function movePage(newPage, down) {
-
   if (!lock) {
     lock = true;
     // Check for defined direction if not given calculate automaticly
@@ -108,11 +108,6 @@ function movePage(newPage, down) {
 // Set the right configuration of pages
 function straightPage() {
   for (var i = 0; i <= pages; i++) {
-    $(".page" + i).css("min-height", $(window).height()); // Reset the min-height
-    $(".page" + i).css("height", $(window).height()); // Reset the height
-    $(".page" + i).css("height", $(".height" + i).height()); // Set the actual height
-  }
-  for (var i = 0; i <= pages; i++) {
     if (i < currentPage && i !== currentPage) {
       $(".page" + i).css("top", -$(".page" + i).height());
     } else if (i > currentPage) {
@@ -122,6 +117,14 @@ function straightPage() {
       $(".page" + i).css("left", $(".page" + currentPage).offset().left);
       $(".page" + i).css("left", $(".page" + currentPage).offset().left);
     }
+  }
+}
+
+function sizePage() {
+  for (var i = 0; i <= pages; i++) {
+    $(".page" + i).css("min-height", $(window).height()); // Reset the min-height
+    $(".page" + i).css("height", $(window).height()); // Reset the height
+    $(".page" + i).css("height", $(".height" + i).height()); // Set the actual height
   }
 }
 // Animate the scroll buttons(hide and show on first and last page)
@@ -161,12 +164,10 @@ function scaleBackground() {
   if ($(window).height() > Background.height()) {
     Background.css("max-width", "none");
     Background.css("max-height", "100%");
-    console.log("1");
   }
   if ($(window).width() > Background.width()) {
     Background.css("max-width", "100%");
     Background.css("max-height", "none");
-    console.log("2");
   }
   // }
 }
