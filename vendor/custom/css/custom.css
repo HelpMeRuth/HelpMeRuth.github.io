@@ -57,16 +57,56 @@ body {
   border-radius: 10px;
 }
 
-.carousel-image1 {
-  color: black;
-  padding-top: calc(100%);
-  background-image: url(../../images/page4wolf.png);
+.carousel-image {
   background-size: cover;
   border-radius: 10px;
+  color: white;
+  padding-top: 100%;
+}
+
+.carousel-image1 {
+  background-image: url(../../images/page1wolf.png);
+}
+
+.carousel-image2 {
+  background-image: url(../../images/page2graph.jpg);
+}
+
+.carousel-image3 {
+  background-image: url(../../images/page5wolf2.png);
+}
+
+.carousel-image4 {
+  background-image: url(../../images/page4wolf.png);
+}
+
+.carousel-image5 {
+  background-image: url(../../images/page5wolf.png);
+}
+
+.carousel-image6 {
+  background-image: url(../../images/page7wolf.png);
+}
+
+.carousel-image7 {
+  background-image: url(../../images/page8wolf.png);
+}
+
+.carousel-image8 {
+  background-image: url(../../images/page10scape.png);
+}
+
+.carousel-image9 {
+  background-image: url(../../images/page11wolf.png);
+}
+
+.carousel-image10 {
+  background-image: url(../../images/page12wolf.png);
 }
 
 .carousel-caption {
-  color: black;
+  color: white;
+  background-color: rgba(22, 22, 22, 0.8);
 }
 
 .italic {
@@ -205,6 +245,7 @@ body {
 }
 
 .contact-box {
+  display: none;
   transition: 0.5s;
   opacity: 0;
   box-shadow: 0px 0px 15px rgba(22, 22, 22, 1);
@@ -230,12 +271,6 @@ body {
 .contact-content {
   position: relative;
   top: 30px;
-}
-
-.contact-button-back {
-  /* position: absolute;
-  bottom: 100px; */
-  /* right: 10px; */
 }
 
 .btn-circle {
