@@ -39,9 +39,34 @@ body {
   }
 }
 
-.carousel-item {
-  min-height: 210px;
-  max-height: 210px;
+.carousel {
+  height: auto;
+  width: 100%;
+  max-width: 750px;
+  background-color: rgba(65, 65, 65, 1);
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0px 3px 10px rgba(44, 44, 44, 0.9);
+  -moz-box-shadow: inset 0px 3px 10px rgba(44, 44, 44, 0.9);
+  box-shadow: inset 0px 3px 10px rgba(44, 44, 44, 0.9);
+}
+
+.carousel-image0 {
+  height: auto;
+  width: 100%;
+  background-size: cover;
+  border-radius: 10px;
+}
+
+.carousel-image1 {
+  color: black;
+  padding-top: calc(100%);
+  background-image: url(../../images/page4wolf.png);
+  background-size: cover;
+  border-radius: 10px;
+}
+
+.carousel-caption {
+  color: black;
 }
 
 .italic {
@@ -62,6 +87,7 @@ body {
   top: 0px;
   color: white;
   text-align: center;
+  transition: 1s;
 }
 
 .page1 {

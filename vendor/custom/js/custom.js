@@ -59,42 +59,66 @@ function movePage(newPage, down) {
     } else if (newPage > pages) {
       newPage = pages;
     }
-    // Nullify the difference between position: fixed and static
-    $(".page" + currentPage).css("left", $(".page" + currentPage).offset().left);
+    if (currentPage == 0) {
+      page0Timeout = 500;
+      $(".page" + currentPage).css("transition", "0.5s");
+      $(".page0").css("max-width", "");
+    } else {
+      page0Timeout = 0;
+    }
+    setTimeout(function() {
+      $(".page" + currentPage).css("transition", "0s");
+      // Scaling
+      straightPage();
+      overlay();
+      // Nullify the difference between position: fixed and static
+      $(".page" + currentPage).css("left", $(".page" + currentPage).offset().left);
 
-    // Compensate for the scrolled position
-    $(".page" + currentPage).css("top", -$(document).scrollTop());
-    $(".page" + newPage).css("top", parseInt($(".page" + newPage).css("top"), 10) - $(document).scrollTop());
+      // Compensate for the scrolled position
+      $(".page" + currentPage).css("top", -$(document).scrollTop());
+      $(".page" + newPage).css("top", parseInt($(".page" + newPage).css("top"), 10) - $(document).scrollTop());
 
-    setTimeout(function() { // work around
-      // Enable animation
-      $(".page" + currentPage).css("transition", "1s");
-      $(".page" + newPage).css("transition", "1s");
-      // Place the currentPage above or under the visible screen, depending on direction
-      if (down) {
-        $(".page" + currentPage).css("top", -$(".page" + currentPage).height());
-      } else {
-        $(".page" + currentPage).css("top", $(".page" + newPage).height());
-      }
-      // "Freeze" the page so it wont cause any issues while hidden
-      $(".page" + currentPage).css("position", "fixed");
-      // Bring in the new page
-      $(".page" + newPage).css("top", 0);
-      // Wait for the animation
-      setTimeout(function() {
-        // Disable animation
-        $(".page" + currentPage).css("transition", "0s");
-        $(".page" + newPage).css("transition", "0s");
-        $(".page" + newPage).css("position", "static");
-        $(".page" + newPage).css("left", "0px");
-        // Update currentPage
-        currentPage = newPage;
-        // Scaling
-        straightPage();
-        overlay();
-        lock = false;
-      }, 1000);
-    }, 100);
+      setTimeout(function() { // work around
+        // Enable animation
+        $(".page" + currentPage).css("transition", "1s");
+        $(".page" + newPage).css("transition", "1s");
+        // Place the currentPage above or under the visible screen, depending on direction
+        if (down) {
+          $(".page" + currentPage).css("top", -$(".page" + currentPage).height());
+        } else {
+          $(".page" + currentPage).css("top", $(".page" + newPage).height());
+        }
+        // "Freeze" the page so it wont cause any issues while hidden
+        $(".page" + currentPage).css("position", "fixed");
+        // Bring in the new page
+        $(".page" + newPage).css("top", 0);
+        // Wait for the animation
+        setTimeout(function() {
+          // Disable animation
+          $(".page" + currentPage).css("transition", "0s");
+          $(".page" + newPage).css("transition", "0s");
+          $(".page" + newPage).css("position", "static");
+          $(".page" + newPage).css("left", "0px");
+          if (newPage == 0) {
+            $(".page" + newPage).css("transition", "0.5s");
+            $(".page0").css("max-width", "100%");
+          }
+          // Update currentPage
+          currentPage = newPage;
+          // Scaling
+          straightPage();
+          overlay();
+          lock = false;
+        }, 1000);
+      }, 100);
+    }, page0Timeout);
+  }
+}
+
+function page0() {
+
+  if (newPage !== 0) {
+    $(".page0").css("max-width", "");
   }
 }
 // Set the right configuration of pages
@@ -159,6 +183,7 @@ function scaleBackground() {
 
 function continuePage() {
   $(window).scrollTop(0);
+  $(".page0").css("max-width", "100%");
   $(".overlay").css("opacity", "0");
   $(".background").css("opacity", "0");
   $(".navbar-custom").css("opacity", "1");
