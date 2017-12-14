@@ -198,6 +198,46 @@ body {
   color: white;
 }
 
+.contact-button {
+  right: 80px;
+  top: 8px;
+  position: absolute;
+}
+
+.contact-box {
+  transition: 0.5s;
+  opacity: 0;
+  box-shadow: 0px 0px 15px rgba(22, 22, 22, 1);
+  border-radius: 10px;
+  text-align: center;
+  position: fixed;
+  max-height: 800px;
+  min-height: 700px;
+  height: 70%;
+  width: 80%;
+  left: 10%;
+  top: 100px;
+  color: white;
+  background-color: rgba(22, 22, 22, 1);
+}
+
+.contact-img {
+  max-width: 300px;
+  height: auto;
+  width: 100%;
+}
+
+.contact-content {
+  position: relative;
+  top: 30px;
+}
+
+.contact-button-back {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
 .btn-circle {
   opacity: 0;
   position: fixed;

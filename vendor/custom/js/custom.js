@@ -210,6 +210,26 @@ function reload() {
   scaleBackground();
   movePage(0, NaN);
 }
+var lock2 = false;
+
+function contacts(show) {
+  if (!lock2) {
+    lock2 = true;
+    if (show) {
+      $(".contact-box").css("display", "inline");
+      setTimeout(function() {
+        $(".contact-box").css("opacity", "1");
+        lock2 = false;
+      }, 10);
+    } else {
+      $(".contact-box").css("opacity", "0");
+      setTimeout(function() {
+        $(".contact-box").css("display", "none");
+        lock2 = false;
+      }, 500);
+    }
+  }
+}
 
 function lazyLoad() {
   $(".lazyload").each(function() {

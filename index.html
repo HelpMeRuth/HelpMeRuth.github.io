@@ -26,10 +26,11 @@
   </div>
   <!-- Universal background. scales for all screens -->
   <img class="background" src="vendor/images/background.jpg" />
-
   <!-- Main navigationbar -->
   <nav class="navbar fixed-top navbar-dark navbar-custom" id="navbar">
     <a class="navbar-brand" href="javascript:reload();">Lupus Inc.</a>
+
+    <button class="btn btn btn-primary contact-button" onclick="javascript:contacts(true);"><i class="fa fa-address-book fa-lg" style="text-align:right;color:white;"></i> Contact</button>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -90,7 +91,7 @@
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 content">
             <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                   <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
@@ -114,8 +115,8 @@
               </div>
              </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-              <h1>De site</h1>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <h1>Inleiding</h1>
                         <p>
                           Ons profielwerkstuk gaat over de wolf. Maar niet alleen wat de wolf is, maar ook wat hij doet, hoe hij het doet en wat de gevolgen zijn op de natuur om ons heen. De wolf is namelijk niet zo simpel als de meeste mensen denken. Het is een erg complex dier
                           en er spelen veel achterliggende factoren bij het zijn van een wolf. Daarbij zorgt hij voor grote gevolgen in ecosystemen waar de wolf aanwezig is. Maar wat beïnvloed de wolf nou allemaal precies door simpelweg z’n dagelijks
@@ -1184,7 +1185,18 @@
               </div>
             </div>
           </div>
-
+          <div class="contact-box">
+            <div class="contact-content">
+              <img class="contact-img" src="vendor/images/wolf-drawing.png" />
+              <p class="italic" style="position:absolute:left:30px;">Gemaakt door River Hanssens.</p>
+              <h3>Dit project is samengesteld door Nick Lust, Ruthger Dijt, Wilfrid Dekker en River Hanssens
+              <h3>van het Zaanlands Lyceum, Zaandam.</h3>
+              <br/>
+              <h4>Heb je enige vragen? Wil je meer weten? Is er iets onduidelijk? </h4>
+              <h4>Neem dan contact op met: LupusInc.contact@gmail.com</h4>
+            </div>
+            <button class="btn btn btn-primary contact-button-back" onclick="javascript:contacts(false);">Sluit</button>
+          </div>
           <button type="button" class="btn btn btn-primary btn-circle btn-lg btn-up" onclick="movePage(NaN, false);"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
           <button type="button" class="btn btn btn-primary btn-circle btn-lg btn-down" onclick="movePage(NaN, true);"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
           <button type="button" class="btn btn btn-primary btn-circle btn-lg btn-counter"><p class="pageNumber">1</p></button>
