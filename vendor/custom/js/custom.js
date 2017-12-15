@@ -193,7 +193,7 @@ function continuePage() {
     $(".background").css("display", "none");
     setTimeout(function() {
       $(".page0").css("max-width", "100%");
-    }, 100);
+    }, 50);
     loaded = true;
     overlay();
   }, 500);
