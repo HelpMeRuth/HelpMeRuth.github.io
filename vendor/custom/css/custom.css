@@ -5,22 +5,16 @@ body {
   background-color: rgba(65, 65, 65, 1);
 }
 
-
-
-
-
 h2 {
   font-size: 3.5vw;
 }
 
 @media(max-width: @screen-xs-max){
-
-
-
   h2 {
     font-size: 24px;
   }
 }
+
 .navbar-custom {
   background-color: rgba(13, 13, 13, 0.7);
   width: 100%;
@@ -58,7 +52,7 @@ h2 {
 .carousel {
   height: auto;
   width: 100%;
-  max-width: 750px;
+  max-width: 650px;
   background-color: rgba(65, 65, 65, 1);
   border-radius: 10px;
   -webkit-box-shadow: inset 0px 3px 10px rgba(44, 44, 44, 0.9);
@@ -143,7 +137,7 @@ h2 {
   top: 0px;
   color: white;
   text-align: center;
-  transition: 1s;
+  transition: 0s;
 }
 
 .page1 {
