@@ -1,34 +1,43 @@
-// Event functions
+// All functions called on load
 function OnLoad() {
   lazyLoad();
   countPages();
-  overlay();
+  welcome();
   straightPage();
   scaleBackground()
 }
-//
+
+// account for changing screensize e.g. desktops
 function Resize() {
+  if (currentPage !== 0) {
+    $(".page0").css("width", $(".page1").width() + 60);
+  } else {
+    $(".page0").css("width", $(window).width());
+
+  }
   straightPage();
   scaleBackground();
 }
+
 // Events
-//
-//Trigger OnLoad() when page is fully loaded.
 $(document).ready(function() {
   OnLoad();
 })
 $(window).resize(function() {
   Resize();
 });
-//
-//Functions
-var currentPage = 0; // Start page
-var pages = 0; // Amount of pages we have
-var lock = false; // simple lock system to prevent bugs
-var loaded = false; // is the site loaded?
+
+// variables
+let currentPage = 0;
+let pages = 0;
+let scrollLock = false;
+let loaded = false;
+let contactlock = true;
+let reset = false;
+
 // Count the amount of pages we have
 function countPages() {
-  for (var found = false; !found;) {
+  for (let found = false; !found;) {
     if ($(".page" + pages).length == 1) {
       pages++;
     } else {
@@ -37,10 +46,12 @@ function countPages() {
     }
   }
 }
+
 // Scroll up or down, to any page number or right under or above the current page
 function movePage(newPage, down) {
-  if (!lock) {
-    lock = true;
+  if (!scrollLock) {
+    scrollLock = true;
+
     // Check for defined direction if not given calculate automaticly
     if (isNaN(down) && !isNaN(newPage)) {
       if ($(".page" + currentPage).css("top") > $(".page" + newPage).css("top")) {
@@ -49,6 +60,7 @@ function movePage(newPage, down) {
         down = true;
       }
     }
+
     // Check for defined newPage
     if (isNaN(newPage)) {
       if (down) {
@@ -59,18 +71,18 @@ function movePage(newPage, down) {
     } else if (newPage > pages) {
       newPage = pages;
     }
+
+    // Fancy animation for page0
     if (currentPage == 0) {
+      $(".page0").velocity({
+        width: $(".page1").width() + 60
+      }, 500);
       page0Timeout = 500;
-      $(".page" + currentPage).css("transition", "0.5s");
-      $(".page0").css("max-width", "");
     } else {
       page0Timeout = 0;
     }
-    setTimeout(function() {
-      $(".page" + currentPage).css("transition", "0s");
-      // Scaling
-      straightPage();
-      overlay();
+
+    setTimeout(function() { // This is needed cuz im not good enough
       // Nullify the difference between position: fixed and static
       $(".page" + currentPage).css("left", $(".page" + currentPage).offset().left);
 
@@ -78,55 +90,49 @@ function movePage(newPage, down) {
       $(".page" + currentPage).css("top", -$(document).scrollTop());
       $(".page" + newPage).css("top", parseInt($(".page" + newPage).css("top"), 10) - $(document).scrollTop());
 
-      setTimeout(function() { // work around
-        // Enable animation
-        $(".page" + currentPage).css("transition", "1s");
-        $(".page" + newPage).css("transition", "1s");
-        // Place the currentPage above or under the visible screen, depending on direction
-        if (down) {
-          $(".page" + currentPage).css("top", -$(".page" + currentPage).height());
-        } else {
-          $(".page" + currentPage).css("top", $(".page" + newPage).height());
-        }
-        // "Freeze" the page so it wont cause any issues while hidden
-        $(".page" + currentPage).css("position", "fixed");
-        // Bring in the new page
-        $(".page" + newPage).css("top", 0);
-        // Wait for the animation
-        setTimeout(function() {
-          // Disable animation
-          $(".page" + currentPage).css("transition", "0s");
-          $(".page" + newPage).css("transition", "0s");
-          $(".page" + newPage).css("position", "static");
-          $(".page" + newPage).css("left", "0px");
-          if (newPage == 0) {
-            $(".page" + newPage).css("transition", "0.5s");
-            $(".page0").css("max-width", "100%");
-          }
-          // Update currentPage
-          currentPage = newPage;
-          // Scaling
-          straightPage();
-          overlay();
-          lock = false;
+      // Animate currentPage
+      $(".page" + currentPage).css("position", "fixed");
+      if (down) {
+        $(".page" + currentPage).velocity({
+          top: -$(".page" + currentPage).height()
         }, 1000);
-      }, 100);
+      } else {
+        $(".page" + currentPage).velocity({
+          top: $(".page" + newPage).height()
+        }, 1000);
+      }
+
+      // Animate newPage
+      $(".page" + newPage).velocity({
+        top: 0
+      }, 1000, function() {
+        $(".page" + newPage).css("position", "static");
+        $(".page" + newPage).css("left", "0px");
+        if (newPage === 0) {
+          $(".page0").velocity({
+            width: $(window).width()
+          }, 500, function() {
+            currentPage = newPage;
+            overlay();
+            straightPage();
+            scrollLock = false;
+          });
+        } else {
+          currentPage = newPage;
+          overlay();
+          straightPage();
+          scrollLock = false;
+        }
+      })
     }, page0Timeout);
   }
 }
 
-function page0() {
-
-  if (newPage !== 0) {
-    $(".page0").css("max-width", "");
-  }
-}
 // Set the right configuration of pages
 function straightPage() {
-  for (var i = 0; i <= pages; i++) {
-    $(".page" + i).css("min-height", $(window).height()); // Reset the min-height
-    $(".page" + i).css("height", $(window).height()); // Reset the height
-    $(".page" + i).css("height", $(".height" + i).height()); // Set the actual height
+  let windowHeight = $(window).height();
+  for (let i = 0; i <= pages; i++) {
+    $(".page" + i).css("min-height", windowHeight).css("height", windowHeight).css("height", $(".height" + i).height());
     if (i < currentPage && i !== currentPage) {
       $(".page" + i).css("top", -$(".page" + i).height());
     } else if (i > currentPage) {
@@ -137,39 +143,58 @@ function straightPage() {
     }
   }
 }
+
 // Animate the scroll buttons(hide and show on first and last page)
 function overlay() {
   if (loaded) {
     if (currentPage == 0) {
-      $(".btn-up").css("opacity", "0");
-      $(".btn-up").css("right", "-60px");
+      $(".btn-up").velocity({
+        opacity: 0,
+        right: -60
+      }, 300);
     } else {
-      $(".btn-up").css("opacity", "1");
-      $(".btn-up").css("right", "20px");
+      $(".btn-up").velocity({
+        opacity: 1,
+        right: 20
+      }, 300);
     }
     if (currentPage == pages) {
-      $(".btn-down").css("opacity", "0");
-      $(".btn-down").css("right", "-60px");
-      $(".btn-up").css("bottom", "80px");
-    } else {
-      $(".btn-down").css("opacity", "1");
-      $(".btn-down").css("right", "20px");
-      $(".btn-up").css("bottom", "140px");
+      $(".btn-down").velocity({
+        opacity: 0,
+        right: -60
+      }, 300, function() {
+        $(".btn-up").velocity({
+          bottom: 80
+        }, 300);
+        reset = true;
+      });
+    } else if (reset) {
+      $(".btn-up").velocity({
+        bottom: 140
+      }, 300, function() {
+        $(".btn-down").velocity({
+          opacity: 1,
+          right: 20
+        }, 300);
+      });
+      reset = false;
     }
     $("p:last").text(currentPage + 1);
-  } else {
-    $('.overlay-content').imagesLoaded(function() {
-      $(".overlay-content").css("opacity", "1");
-      $(".overlay-content").css("top", "0");
-    });
   }
 }
-//We need to check if our background fits the screen.
-//If not change the way how we calculate the width or height of the picturel.
-// only needed for greeting overlay. both mobile en desktop
+
+// Load welcome screen
+function welcome() {
+  $('.overlay-content').imagesLoaded(function() {
+    $(".overlay-content").css("opacity", "1");
+    $(".overlay-content").css("top", "0");
+  });
+}
+
+// Just like it says
 function scaleBackground() {
-  var Background = $(".background");
   if (!loaded) {
+    let Background = $(".background");
     if ($(window).height() > Background.height()) {
       Background.css("max-width", "none");
       Background.css("max-height", "100%");
@@ -181,8 +206,10 @@ function scaleBackground() {
   }
 }
 
+// Setup the main website for use
 function continuePage() {
   $(window).scrollTop(0);
+  $(".page0").css("max-width", "100%");
   $(".overlay").css("opacity", "0");
   $(".background").css("opacity", "0");
   $(".navbar-custom").css("opacity", "1");
@@ -192,8 +219,6 @@ function continuePage() {
     $(".overlay").css("display", "none");
     $(".background").css("display", "none");
     setTimeout(function() {
-      $(".page0").css("transition", "0");    
-      $(".page0").css("max-width", "100%");
       straightPage();
     }, 50);
     loaded = true;
@@ -202,6 +227,7 @@ function continuePage() {
 
 }
 
+// Go back to the welcome screen
 function reload() {
   $(".overlay").css("display", "inline");
   $(".background").css("display", "inline");
@@ -215,27 +241,30 @@ function reload() {
   scaleBackground();
   movePage(0, NaN);
 }
-var lock2 = false;
 
+// Fade animation for the contacts button
 function contacts(show) {
-  if (!lock2) {
-    lock2 = true;
+  if (contactlock) {
+    contactlock = false;
     if (show) {
       $(".contact-box").css("display", "inline");
-      setTimeout(function() {
-        $(".contact-box").css("opacity", "1");
-        lock2 = false;
-      }, 10);
+      $(".contact-box").velocity({
+        opacity: 1
+      }, 200, function() {
+        contactlock = true;
+      });
     } else {
-      $(".contact-box").css("opacity", "0");
-      setTimeout(function() {
+      $(".contact-box").velocity({
+        opacity: 0
+      }, 200, function() {
+        contactlock = true;
         $(".contact-box").css("display", "none");
-        lock2 = false;
-      }, 500);
+      });
     }
   }
 }
 
+// Load all picture asynchronously to speed up physical browser load time
 function lazyLoad() {
   $(".lazyload").each(function() {
     $(this).attr("src", $(this).attr("data-src"));
